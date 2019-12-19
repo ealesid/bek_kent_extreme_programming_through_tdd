@@ -5,8 +5,8 @@ def test_multiplication():
 
     five_dollars = Dollar(5)
 
-    five_dollars.times(2)
-    assert five_dollars.amount == 5 * 2
+    product = five_dollars.times(2)
+    assert product.amount == 5 * 2
 
-    five_dollars.times(3)
-    assert five_dollars.amount == 5 * 3
+    product = five_dollars.times(3)
+    assert product.amount == 5 * 3
