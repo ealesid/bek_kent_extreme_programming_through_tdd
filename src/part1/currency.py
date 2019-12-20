@@ -17,6 +17,10 @@ class Currency(object):
     def dollar(amount):
         return Dollar(amount)
 
+    @staticmethod
+    def franc(amount):
+        return Franc(amount)
+
 
 class Dollar(Currency):
 
