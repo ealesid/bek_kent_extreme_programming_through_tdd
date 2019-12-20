@@ -1,12 +1,10 @@
 class Currency(object):
 
-    pass
+    def __init__(self, amount):
+        self._amount = amount
 
 
 class Dollar(Currency):
-
-    def __init__(self, amount):
-        self.__amount = amount
 
     def __eq__(self, other):
         return self.amount == other.amount
@@ -16,7 +14,7 @@ class Dollar(Currency):
 
     @property
     def amount(self):
-        return self.__amount
+        return self._amount
 
 
 class Franc(object):
