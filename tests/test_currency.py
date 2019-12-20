@@ -30,3 +30,8 @@ def test_franc_multiplication():
 
     assert Franc(10) == five_francs.times(2)
     assert Franc(15) == five_francs.times(3)
+
+
+def test_currency():
+    assert Currency.dollar(1).currency() == 'USD'
+    assert Currency.franc(1).currency() == 'CHF'
