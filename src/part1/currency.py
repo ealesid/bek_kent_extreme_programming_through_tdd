@@ -4,7 +4,10 @@ class Currency(object):
         self._amount = amount
 
     def __eq__(self, other):
-        return self.amount == other.amount
+        return all([
+            self.__class__ == other.__class__,
+            self.amount == other.amount
+        ])
 
     @property
     def amount(self):
