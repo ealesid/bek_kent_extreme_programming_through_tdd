@@ -1,4 +1,8 @@
-class Currency(object):
+from abc import ABC
+from abc import abstractmethod
+
+
+class Currency(ABC):
 
     def __init__(self, amount):
         self._amount = amount
@@ -8,6 +12,10 @@ class Currency(object):
             self.__class__ == other.__class__,
             self.amount == other.amount
         ])
+
+    @abstractmethod
+    def times(self, multiplier):
+        pass
 
     @property
     def amount(self):
