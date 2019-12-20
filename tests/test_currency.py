@@ -1,9 +1,9 @@
-from src.part1.currency import Dollar, Franc
+from src.part1.currency import Currency, Dollar, Franc
 
 
 def test_multiplication():
 
-    five_dollars = Dollar(5)
+    five_dollars = Currency.dollar(5)
 
     product = five_dollars.times(2)
     assert product.amount == 5 * 2

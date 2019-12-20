@@ -13,6 +13,10 @@ class Currency(object):
     def amount(self):
         return self._amount
 
+    @staticmethod
+    def dollar(amount):
+        return Dollar(amount)
+
 
 class Dollar(Currency):
 
