@@ -14,6 +14,10 @@ class Currency(ABC):
         ])
 
     @abstractmethod
+    def currency(self):
+        pass
+
+    @abstractmethod
     def times(self, multiplier):
         pass
 
@@ -32,11 +36,17 @@ class Currency(ABC):
 
 class Dollar(Currency):
 
+    def currency(self):
+        return 'USD'
+
     def times(self, multiplier):
         return Dollar(self.amount * multiplier)
 
 
 class Franc(Currency):
+
+    def currency(self):
+        return 'CHF'
 
     def times(self, multiplier):
         return Franc(self.amount * multiplier)
