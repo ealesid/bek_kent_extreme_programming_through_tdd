@@ -4,6 +4,8 @@ from abc import abstractmethod
 
 class Currency(ABC):
 
+    _currency = None
+
     def __init__(self, amount):
         self._amount = amount
 
@@ -14,16 +16,16 @@ class Currency(ABC):
         ])
 
     @abstractmethod
-    def currency(self):
-        pass
-
-    @abstractmethod
     def times(self, multiplier):
         pass
 
     @property
     def amount(self):
         return self._amount
+
+    @property
+    def currency(self):
+        return self._currency
 
     @staticmethod
     def dollar(amount):
@@ -36,8 +38,9 @@ class Currency(ABC):
 
 class Dollar(Currency):
 
-    def currency(self):
-        return 'USD'
+    def __init__(self, amount):
+        super().__init__(amount)
+        self._currency = 'USD'
 
     def times(self, multiplier):
         return Dollar(self.amount * multiplier)
@@ -45,8 +48,9 @@ class Dollar(Currency):
 
 class Franc(Currency):
 
-    def currency(self):
-        return 'CHF'
+    def __init__(self, amount):
+        super().__init__(amount)
+        self._currency = 'CHF'
 
     def times(self, multiplier):
         return Franc(self.amount * multiplier)

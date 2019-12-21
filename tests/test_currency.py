@@ -33,5 +33,5 @@ def test_franc_multiplication():
 
 
 def test_currency():
-    assert Currency.dollar(1).currency() == 'USD'
-    assert Currency.franc(1).currency() == 'CHF'
+    assert Currency.dollar(1).currency == 'USD'
+    assert Currency.franc(1).currency == 'CHF'
