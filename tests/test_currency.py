@@ -103,3 +103,15 @@ def test_summ_plus_currency():
     summ: Expression = Summ(five_dollars, ten_francs) + five_dollars
     result: Currency = bank.reduce(summ, 'USD')
     assert result == Currency.dollar(15)
+
+
+def test_summ_times():
+    five_dollars: Expression = Currency.dollar(5)
+    ten_francs: Expression = Currency.franc(10)
+
+    bank: Bank = Bank()
+    bank.add_rate('CHF', 'USD', 2)
+
+    summ: Expression = Summ(five_dollars, ten_francs).times(2)
+    result: Currency = bank.reduce(summ, 'USD')
+    assert result == Currency.dollar(20)
