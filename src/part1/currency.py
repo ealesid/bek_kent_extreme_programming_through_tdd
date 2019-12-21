@@ -2,6 +2,24 @@ from abc import ABC
 from abc import abstractmethod
 
 
+class CurrencyPair:
+    from_: str
+    to: str
+
+    def __init__(self, from_: str, to: str):
+        self.from_ =from_
+        self.to = to
+
+    def __eq__(self, other):
+        return all([
+            self.from_ == other.from_,
+            self.to == other.to
+        ])
+
+    def __hash__(self):
+        return 0
+
+
 class Currency(ABC):
 
     _currency = None
@@ -22,8 +40,9 @@ class Currency(ABC):
     def __add__(self, addend):
         return Summ(self, addend)
 
-    def reduce(self, to: str):
-        return self
+    def reduce(self, bank, to: str):
+        rate: int = bank.rate(self.currency, to)
+        return Currency(self.amount / rate, to)
 
     def times(self, multiplier):
         return Currency(self.amount * multiplier, self.currency)
@@ -47,16 +66,24 @@ class Currency(ABC):
 
 class Expression:
 
-    @abstractmethod
-    def reduce(self, to: str):
+    @staticmethod
+    def reduce(bank, to: str):
         pass
 
 
 class Bank:
+    rates: dict = {}
 
-    @staticmethod
-    def reduce(source: Expression, to: str) -> Currency:
-        return source.reduce(to)
+    def add_rate(self, from_: str, to: str, rate: int) -> None:
+        self.rates[CurrencyPair(from_, to)] = rate
+
+    def rate(self, from_: str, to: str) -> int:
+        if from_ == to:
+            return 1
+        return self.rates.get(CurrencyPair(from_, to))
+
+    def reduce(self, source: Expression, to: str) -> Currency:
+        return source.reduce(self, to)
 
 
 class Summ(Expression):
@@ -67,6 +94,6 @@ class Summ(Expression):
         self.augend = augend
         self.addend = addend
 
-    def reduce(self, to: str) -> Currency:
+    def reduce(self, bank: Bank, to: str) -> Currency:
         amount: int = self.augend.amount + self.addend.amount
         return Currency(amount, to)

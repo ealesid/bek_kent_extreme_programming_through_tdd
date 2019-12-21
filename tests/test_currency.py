@@ -69,3 +69,16 @@ def test_reduce_money():
     bank: Bank = Bank()
     result: Currency = bank.reduce(Currency.dollar(1), 'USD')
     assert result == Currency.dollar(1)
+
+
+def test_reduce_money_different_currency():
+    bank: Bank = Bank()
+    bank.add_rate('CHF', 'USD', 2)
+    result: Currency = bank.reduce(Currency.franc(2), 'USD')
+    assert result == Currency.dollar(1)
+
+
+def test_identity_rate():
+    bank = Bank()
+    # bank.add_rate('USD', 'USD', 1)
+    assert Bank().rate('USD', 'USD') == 1
