@@ -1,4 +1,4 @@
-from src.part1.currency import Currency, Dollar, Franc
+from src.part1.currency import Currency, Franc
 
 
 def test_multiplication():
@@ -13,6 +13,10 @@ def test_multiplication():
     assert product.amount == 5 * 3
     assert product == Currency.dollar(5 * 3)
 
+    five_francs = Currency.franc(5)
+    assert Currency.franc(10) == five_francs.times(2)
+    assert Currency.franc(15) == five_francs.times(3)
+
 
 def test_equality():
 
@@ -25,18 +29,6 @@ def test_equality():
     assert Currency.dollar(5) != Currency.franc(5)
 
 
-def test_franc_multiplication():
-    five_francs = Currency.franc(5)
-
-    assert Currency.franc(10) == five_francs.times(2)
-    assert Currency.franc(15) == five_francs.times(3)
-
-
 def test_currency():
     assert Currency.dollar(1).currency == 'USD'
     assert Currency.franc(1).currency == 'CHF'
-
-
-def test_different_class_equality():
-    assert Currency(10, 'USD') == Dollar(10, 'USD')
-    assert Currency(5, 'CHF') == Franc(5, 'CHF')

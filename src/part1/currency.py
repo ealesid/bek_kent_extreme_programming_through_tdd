@@ -29,11 +29,11 @@ class Currency(ABC):
 
     @staticmethod
     def dollar(amount):
-        return Dollar(amount, 'USD')
+        return Currency(amount, 'USD')
 
     @staticmethod
     def franc(amount):
-        return Franc(amount, 'CHF')
+        return Currency(amount, 'CHF')
 
 
 class Dollar(Currency):
