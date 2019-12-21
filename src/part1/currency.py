@@ -12,13 +12,12 @@ class Currency(ABC):
 
     def __eq__(self, other):
         return all([
-            self.__class__ == other.__class__,
+            self.currency == other.currency,
             self.amount == other.amount
         ])
 
-    @abstractmethod
     def times(self, multiplier):
-        pass
+        return Currency(self.amount * multiplier, self.currency)
 
     @property
     def amount(self):
