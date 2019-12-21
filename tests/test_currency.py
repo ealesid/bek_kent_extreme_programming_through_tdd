@@ -19,17 +19,17 @@ def test_equality():
     assert Currency.dollar(5) == Currency.dollar(5)
     assert Currency.dollar(5) != Currency.dollar(6)
 
-    assert Franc(5) == Franc(5)
-    assert Franc(5) != Franc(6)
+    assert Currency.franc(5) == Currency.franc(5)
+    assert Currency.franc(5) != Currency.franc(6)
 
-    assert Currency.dollar(5) != Franc(5)
+    assert Currency.dollar(5) != Currency.franc(5)
 
 
 def test_franc_multiplication():
-    five_francs = Franc(5)
+    five_francs = Currency.franc(5)
 
-    assert Franc(10) == five_francs.times(2)
-    assert Franc(15) == five_francs.times(3)
+    assert Currency.franc(10) == five_francs.times(2)
+    assert Currency.franc(15) == five_francs.times(3)
 
 
 def test_currency():
