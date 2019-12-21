@@ -1,4 +1,5 @@
 from src.part1.currency import Currency
+from src.part1.bank import Bank, Expression
 
 
 def test_multiplication():
@@ -37,3 +38,10 @@ def test_currency():
 def test_simple_addition():
     summary = Currency.dollar(5) + Currency.dollar(5)
     assert summary == Currency.dollar(10)
+
+    five_dollars: Currency = Currency.dollar(5)
+    summ: Expression = five_dollars + five_dollars
+
+    bank: Bank = Bank()
+    reduced: Currency = bank.reduce(summ, 'USD')
+    assert reduced == Currency.dollar(10)
