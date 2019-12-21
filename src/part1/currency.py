@@ -1,5 +1,7 @@
-from abc import ABC
-from abc import abstractmethod
+class Expression:
+    @staticmethod
+    def reduce(bank, to: str):
+        pass
 
 
 class CurrencyPair:
@@ -20,7 +22,7 @@ class CurrencyPair:
         return 0
 
 
-class Currency(ABC):
+class Currency(Expression):
 
     _currency = None
 
@@ -33,9 +35,6 @@ class Currency(ABC):
             self.currency == other.currency,
             self.amount == other.amount
         ])
-
-    # def __add__(self, other):
-    #     return Currency(self.amount + other.amount, self.currency)
 
     def __add__(self, addend):
         return Summ(self, addend)
@@ -64,13 +63,6 @@ class Currency(ABC):
         return Currency(amount, 'CHF')
 
 
-class Expression:
-
-    @staticmethod
-    def reduce(bank, to: str):
-        pass
-
-
 class Bank:
     rates: dict = {}
 
@@ -95,5 +87,5 @@ class Summ(Expression):
         self.addend = addend
 
     def reduce(self, bank: Bank, to: str) -> Currency:
-        amount: int = self.augend.amount + self.addend.amount
+        amount: int = self.augend.reduce(bank, to).amount + self.addend.reduce(bank, to).amount
         return Currency(amount, to)
