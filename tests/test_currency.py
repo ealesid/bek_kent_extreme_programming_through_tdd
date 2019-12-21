@@ -35,5 +35,5 @@ def test_currency():
 
 
 def test_simple_addition():
-    summary = Currency.dollar(5).plus(Currency.dollar(5))
+    summary = Currency.dollar(5) + Currency.dollar(5)
     assert summary == Currency.dollar(10)

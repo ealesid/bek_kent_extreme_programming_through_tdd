@@ -16,8 +16,8 @@ class Currency(ABC):
             self.amount == other.amount
         ])
 
-    def plus(self, addend):
-        return Currency(self.amount + addend.amount, self.currency)
+    def __add__(self, other):
+        return Currency(self.amount + other.amount, self.currency)
 
     def times(self, multiplier):
         return Currency(self.amount * multiplier, self.currency)
