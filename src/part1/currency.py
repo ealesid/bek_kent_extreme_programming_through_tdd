@@ -87,7 +87,7 @@ class Summ(Expression):
         self.addend = addend
 
     def __add__(self, addend: Expression) -> Expression:
-        pass
+        return Summ(self, addend)
 
     def reduce(self, bank: Bank, to: str) -> Currency:
         amount: int = self.augend.reduce(bank, to).amount + self.addend.reduce(bank, to).amount
