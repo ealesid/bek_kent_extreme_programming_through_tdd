@@ -6,8 +6,9 @@ class Currency(ABC):
 
     _currency = None
 
-    def __init__(self, amount):
+    def __init__(self, amount, currency):
         self._amount = amount
+        self._currency = currency
 
     def __eq__(self, other):
         return all([
@@ -29,28 +30,20 @@ class Currency(ABC):
 
     @staticmethod
     def dollar(amount):
-        return Dollar(amount)
+        return Dollar(amount, 'USD')
 
     @staticmethod
     def franc(amount):
-        return Franc(amount)
+        return Franc(amount, 'CHF')
 
 
 class Dollar(Currency):
 
-    def __init__(self, amount):
-        super().__init__(amount)
-        self._currency = 'USD'
-
     def times(self, multiplier):
-        return Dollar(self.amount * multiplier)
+        return Currency.dollar(self.amount * multiplier)
 
 
 class Franc(Currency):
 
-    def __init__(self, amount):
-        super().__init__(amount)
-        self._currency = 'CHF'
-
     def times(self, multiplier):
-        return Franc(self.amount * multiplier)
+        return Currency.franc(self.amount * multiplier)
