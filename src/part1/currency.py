@@ -16,9 +16,8 @@ class Currency(ABC):
             self.amount == other.amount
         ])
 
-    # @abstractmethod
-    # def times(self, multiplier):
-    #     pass
+    def times(self, multiplier):
+        return Currency(self.amount * multiplier, self.currency)
 
     @property
     def amount(self):
@@ -38,12 +37,8 @@ class Currency(ABC):
 
 
 class Dollar(Currency):
-
-    def times(self, multiplier):
-        return Currency.dollar(self.amount * multiplier)
+    pass
 
 
 class Franc(Currency):
-
-    def times(self, multiplier):
-        return Currency.franc(self.amount * multiplier)
+    pass
