@@ -34,11 +34,3 @@ class Currency(ABC):
     @staticmethod
     def franc(amount):
         return Currency(amount, 'CHF')
-
-
-class Dollar(Currency):
-    pass
-
-
-class Franc(Currency):
-    pass

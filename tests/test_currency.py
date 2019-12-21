@@ -1,4 +1,4 @@
-from src.part1.currency import Currency, Franc
+from src.part1.currency import Currency
 
 
 def test_multiplication():
