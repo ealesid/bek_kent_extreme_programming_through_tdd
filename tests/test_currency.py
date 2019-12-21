@@ -63,3 +63,9 @@ def test_reduce_summ():
     bank: Bank = Bank()
     result: Currency = bank.reduce(summ, 'USD')
     assert result == Currency.dollar(3 + 4)
+
+
+def test_reduce_money():
+    bank: Bank = Bank()
+    result: Currency = bank.reduce(Currency.dollar(1), 'USD')
+    assert result == Currency.dollar(1)

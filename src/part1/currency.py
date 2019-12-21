@@ -22,6 +22,9 @@ class Currency(ABC):
     def __add__(self, addend):
         return Summ(self, addend)
 
+    def reduce(self, to: str):
+        return self
+
     def times(self, multiplier):
         return Currency(self.amount * multiplier, self.currency)
 
@@ -43,15 +46,17 @@ class Currency(ABC):
 
 
 class Expression:
-    pass
+
+    @abstractmethod
+    def reduce(self, to: str):
+        pass
 
 
 class Bank:
 
     @staticmethod
     def reduce(source: Expression, to: str) -> Currency:
-        summ: Summ = source
-        return summ.reduce(to)
+        return source.reduce(to)
 
 
 class Summ(Expression):
