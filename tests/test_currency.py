@@ -56,3 +56,10 @@ def test_plus_returns_summ():
     summ: Summ = result
     assert five == summ.augend
     assert five == summ.addend
+
+
+def test_reduce_summ():
+    summ: Expression = Summ(Currency.dollar(3), Currency.dollar(4))
+    bank: Bank = Bank()
+    result: Currency = bank.reduce(summ, 'USD')
+    assert result == Currency.dollar(3 + 4)

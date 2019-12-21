@@ -48,8 +48,10 @@ class Expression:
 
 class Bank:
 
-    def reduce(self, source: Expression, to: str) -> Currency:
-        return Currency.dollar(10)
+    @staticmethod
+    def reduce(source: Expression, to: str) -> Currency:
+        summ: Summ = source
+        return summ.reduce(to)
 
 
 class Summ(Expression):
@@ -59,3 +61,7 @@ class Summ(Expression):
     def __init__(self, augend: Currency, addend: Currency):
         self.augend = augend
         self.addend = addend
+
+    def reduce(self, to: str) -> Currency:
+        amount: int = self.augend.amount + self.addend.amount
+        return Currency(amount, to)
