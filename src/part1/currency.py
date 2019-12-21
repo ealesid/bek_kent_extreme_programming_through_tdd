@@ -16,8 +16,11 @@ class Currency(ABC):
             self.amount == other.amount
         ])
 
-    def __add__(self, other):
-        return Currency(self.amount + other.amount, self.currency)
+    # def __add__(self, other):
+    #     return Currency(self.amount + other.amount, self.currency)
+
+    def __add__(self, addend):
+        return Summ(self, addend)
 
     def times(self, multiplier):
         return Currency(self.amount * multiplier, self.currency)
@@ -37,3 +40,22 @@ class Currency(ABC):
     @staticmethod
     def franc(amount):
         return Currency(amount, 'CHF')
+
+
+class Expression:
+    pass
+
+
+class Bank:
+
+    def reduce(self, source: Expression, to: str) -> Currency:
+        return Currency.dollar(10)
+
+
+class Summ(Expression):
+    augend: Currency
+    addend: Currency
+
+    def __init__(self, augend: Currency, addend: Currency):
+        self.augend = augend
+        self.addend = addend
