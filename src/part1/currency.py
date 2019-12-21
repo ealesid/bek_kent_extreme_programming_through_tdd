@@ -29,20 +29,8 @@ class Currency(ABC):
 
     @staticmethod
     def dollar(amount):
-        return Dollar(amount, 'USD')
+        return Currency(amount, 'USD')
 
     @staticmethod
     def franc(amount):
-        return Franc(amount, 'CHF')
-
-
-class Dollar(Currency):
-
-    def times(self, multiplier):
-        return Currency.dollar(self.amount * multiplier)
-
-
-class Franc(Currency):
-
-    def times(self, multiplier):
-        return Currency.franc(self.amount * multiplier)
+        return Currency(amount, 'CHF')
