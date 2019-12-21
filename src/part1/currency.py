@@ -36,14 +36,14 @@ class Currency(Expression):
             self.amount == other.amount
         ])
 
-    def __add__(self, addend):
+    def __add__(self, addend) -> Expression:
         return Summ(self, addend)
 
     def reduce(self, bank, to: str):
         rate: int = bank.rate(self.currency, to)
         return Currency(self.amount / rate, to)
 
-    def times(self, multiplier):
+    def times(self, multiplier) -> Expression:
         return Currency(self.amount * multiplier, self.currency)
 
     @property
@@ -79,12 +79,15 @@ class Bank:
 
 
 class Summ(Expression):
-    augend: Currency
-    addend: Currency
+    augend: Expression
+    addend: Expression
 
-    def __init__(self, augend: Currency, addend: Currency):
+    def __init__(self, augend: Expression, addend: Expression):
         self.augend = augend
         self.addend = addend
+
+    def __add__(self, addend: Expression) -> Expression:
+        pass
 
     def reduce(self, bank: Bank, to: str) -> Currency:
         amount: int = self.augend.reduce(bank, to).amount + self.addend.reduce(bank, to).amount
