@@ -12,8 +12,13 @@ class TestCase:
         result = TestResult()
         result.test_started()
         self.setup()
-        method = getattr(self, self.name)
-        method()
+
+        try:
+            method = getattr(self, self.name)
+            method()
+        except Exception as e:
+            result.test_failed()
+
         self.teardown()
         return result
 
@@ -53,12 +58,20 @@ class TestCaseTest(TestCase):
     def test_result(self):
         test = WasRun('test_method')
         result = test.run()
-        print(f'\n\tresult.summary >\t{result.summary()}')
+        print(f'\n\ttest_result >\t{result.summary()}')
         assert result.summary() == '1 run, 0 failed'
 
     def test_failed_result(self):
         test = WasRun('test_broken_method')
         result = test.run()
+        print(f'\n\ttest_failed_result >\t{result.summary()}')
+        assert result.summary() == '1 run, 1 failed'
+
+    def test_failed_result_formatting(self):
+        result = TestResult()
+        result.test_started()
+        result.test_failed()
+        print(f'\n\ttest_failed_result_formatting >\t{result.summary()}')
         assert result.summary() == '1 run, 1 failed'
 
     # def test_running(self):
@@ -69,14 +82,19 @@ class TestCaseTest(TestCase):
 class TestResult:
     def __init__(self):
         self.run_count = 0
+        self.error_count = 0
 
     def test_started(self):
         self.run_count += 1
 
+    def test_failed(self):
+        self.error_count += 1
+
     def summary(self):
-        return f'{self.run_count} run, 0 failed'
+        return f'{self.run_count} run, {self.error_count} failed'
 
 
 TestCaseTest('test_template_method').run()
 TestCaseTest('test_result').run()
 TestCaseTest('test_failed_result').run()
+TestCaseTest('test_failed_result_formatting').run()
