@@ -2,7 +2,11 @@ class TestCase:
     def __init__(self, name):
         self.name = name
 
+    def setup(self):
+        pass
+
     def run(self):
+        self.setup()
         method = getattr(self, self.name)
         method()
 
@@ -15,17 +19,23 @@ class WasRun(TestCase):
     def test_method(self):
         self.was_run = True
 
+    def setup(self):
+        self.was_run = None
+        self.was_setup = True
+
 
 class TestCaseTest(TestCase):
+
+    def setup(self):
+        self.test = WasRun('test_method')
+
+    def test_setup(self):
+        self.test.run()
+        assert self.test.was_setup
+
     def test_running(self):
-        test = WasRun('test_method')
-        assert not test.was_run
-        test.run()
-        assert test.was_run
-        TestCaseTest('test_method').run()
+        self.test.run()
+        assert self.test.was_run
 
 
-test = WasRun('test_method')
-print(test.was_run)
-test.run()
-print(test.was_run)
+TestCaseTest('test_setup').run()
