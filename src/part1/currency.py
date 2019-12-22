@@ -3,6 +3,10 @@ class Expression:
     def reduce(bank, to: str):
         pass
 
+    @staticmethod
+    def times(multiplier: int):
+        pass
+
 
 class CurrencyPair:
     from_: str
@@ -87,8 +91,11 @@ class Summ(Expression):
         self.addend = addend
 
     def __add__(self, addend: Expression) -> Expression:
-        pass
+        return Summ(self, addend)
 
     def reduce(self, bank: Bank, to: str) -> Currency:
         amount: int = self.augend.reduce(bank, to).amount + self.addend.reduce(bank, to).amount
         return Currency(amount, to)
+
+    def times(self, multiplier: int) -> Expression:
+        return Summ(self.augend.times(multiplier), self.addend.times(multiplier))
